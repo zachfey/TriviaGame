@@ -1,19 +1,16 @@
 $(document).ready();
 
 var questions, question, answers, correctAnswer, answer, numberRight, numberWrong, gameOver, start, randQ,
-    choseQuestion, questionNumber, ansNum, qTimer, dTimer, rTimer, qArray
+    choseQuestion, questionNumber, ansNum, qTimer, dTimer, rTimer, qArray, counter
 
 
 
 function pickQuestion() {
-    randQ = Math.floor(Math.random() * qArray.length);
+    randQ = qArray[Math.floor(Math.random() * qArray.length)];
     console.log('qArray before:' + qArray)
-    for(let i = 0; i < qArray.length; i++){ 
-        if ( qArray[i] === randQ) {
-          qArray.splice(i, 1); 
-        }
-     }
-     console.log('qArray after: ' + qArray)
+    qArray.splice(randQ, 1);
+    console.log('qArray after: ' + qArray)
+    console.log('randQ:' + randQ)
     return randQ;
 }
 
@@ -40,7 +37,7 @@ questions = [question1, question2, question3, question4, question5]
 
 game = {
     initialize: function () {
-        qArray = [1, 2, 3, 4, 5] //TODO expand to keep up with number of questions
+        qArray = [0, 1, 2, 3, 4] //TODO expand to keep up with number of questions
         numberRight = 0;
         numberWrong = 0;
         gameOver = false
@@ -53,27 +50,36 @@ game = {
     },
 
     newQuestion: function () {
-        
+
         start = new Date;
 
+        counter = 0
         dTimer = setInterval(function () {
-            $('#timeRemaining').text(parseInt(16 - (new Date - start) / 1000));
-            console.logt('tick');
+            $('#timeRemaining').text(14 - counter);
+            counter++
+            console.log('tick');
         }, 1000);
 
-        
         qTimer = setInterval(function () {
-            game.displayResult(correctAnswer);
+            clearInterval(dTimer);
+            clearInterval(qTimer);
+            if (correctAnswer) {
+                game.correctResult();
+            } else {
+                game.wrongResult();
+            }
         }, 15000);
+        var qNumber = pickQuestion()
+        console.log('qNumber: ' + qNumber)
+        choseQuestion = questions[qNumber];
 
-        choseQuestion = questions[pickQuestion()];
- 
         $('#question').text(choseQuestion.question); //populate the question
         for (let i = 1; i < 5; i++) { //populate the answer
             $('#answer' + i).text(choseQuestion.answers[i - 1]);
         }
 
         $('#questionBox').show(); //show the user the question
+        $('#resultBox').hide();
     },
 
     checkAnswer: function (ansNum) {
@@ -84,24 +90,15 @@ game = {
         }
     },
 
-    displayResult: function (response) {
-        clearInterval(dTimer);
-        clearInterval(qTimer);
-        console.log('display result')
-        console.log(dTimer)
-        console.log(response)
-        $('#questionBox').hide();
-        clearInterval(rTimer);
-        if (response) {
-            game.correctResult();
-        } else {
-            game.wrongResult();
-        }
-    },
-
     correctResult: function () {
+        $('#questionBox').hide();
+        $('#resultBox').show();
+        $('#rightWrong').text("Correct!");
+
+        numberRight++
         console.log('newquestion')
         rTimer = setInterval(function () {
+            clearInterval(rTimer);
             console.log('hellloooo')
             game.newQuestion();
         }, 5000);
@@ -109,8 +106,14 @@ game = {
     },
 
     wrongResult: function () {
+        $('#questionBox').hide();
+        $('#resultBox').show();
+        $('#rightWrong').text("Wrong!");
+
+        numberWrong++
         console.log('newquestion')
         rTimer = setInterval(function () {
+            clearInterval(rTimer);
             console.log('hellloooo')
             game.newQuestion();
         }, 5000);
@@ -123,7 +126,7 @@ game.initialize();
 
 $('#start').on('click', function () {
     $('#start').hide()
-    game.newQuestion(); 
+    game.newQuestion();
 })
 
 $('.answer').on('click', function () {
