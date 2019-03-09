@@ -1,8 +1,8 @@
 $(document).ready();
 
 var questions, question, answers, correctAnswer, answer, numberRight, numberWrong, gameOver, start, randQ,
-    choseQuestion, questionNumber, ansNum, qTimer, dTimer, rTimer, qArray, counter
-
+    choseQuestion, questionNumber, ansNum, qTimer, dTimer, rTimer, qArray, counter,
+    qCount
 
 
 function pickQuestion() {
@@ -40,27 +40,29 @@ game = {
         qArray = [0, 1, 2, 3, 4] //TODO expand to keep up with number of questions
         numberRight = 0;
         numberWrong = 0;
+        qCount = 0;
         gameOver = false
 
-        $('#questionBox').hide()
-        $('#resultBox').hide()
+        $('#questionBox').hide();
+        $('#resultBox').hide();
+        $('gameOver').hide();
 
-        $('#start').show()
+        $('#start').show();
 
     },
 
     newQuestion: function () {
-
+        qCount++;
         start = new Date;
 
-        counter = 0
-        dTimer = setInterval(function () {
-            $('#timeRemaining').text(14 - counter);
+        counter = 0;
+        dTimer = setInterval(function () {//Count down from 7
+            $('#timeRemaining').text(6 - counter);
             counter++
             console.log('tick');
         }, 1000);
 
-        qTimer = setInterval(function () {
+        qTimer = setInterval(function () {//Display the result after 7s
             clearInterval(dTimer);
             clearInterval(qTimer);
             if (correctAnswer) {
@@ -68,10 +70,11 @@ game = {
             } else {
                 game.wrongResult();
             }
-        }, 15000);
-        var qNumber = pickQuestion()
+        }, 7000);
+
+        var qNumber = pickQuestion()//pick a random question id
         console.log('qNumber: ' + qNumber)
-        choseQuestion = questions[qNumber];
+        choseQuestion = questions[qNumber];//assign the chosen question based on question id
 
         $('#question').text(choseQuestion.question); //populate the question
         for (let i = 1; i < 5; i++) { //populate the answer
@@ -100,7 +103,11 @@ game = {
         rTimer = setInterval(function () {
             clearInterval(rTimer);
             console.log('hellloooo')
-            game.newQuestion();
+            if (qCount < 3){
+                game.newQuestion();
+            } else {
+                game.gameOver();
+            }
         }, 5000);
 
     },
@@ -117,6 +124,16 @@ game = {
             console.log('hellloooo')
             game.newQuestion();
         }, 5000);
+    },
+
+    gameOver: function(){
+        gameOver = true;
+        $('#resultBox').hide();
+        $('#gameOver').show();
+        $('#gameOverText').text("That's all for this round!");
+        $('numberRight').text("Correct: " + numberRight);
+        $('numberWrong').text('Wrong: ' + numberWrong);
+        $('playAgain').text("Would you like to play again?")
     }
 }
 
