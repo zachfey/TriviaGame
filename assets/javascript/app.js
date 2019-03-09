@@ -45,10 +45,11 @@ game = {
 
         $('#questionBox').hide();
         $('#resultBox').hide();
-        $('gameOver').hide();
+        $('#gameOver').hide();
+        $('.replayButton').hide();
+        $('#start').hide();
 
-        $('#start').show();
-
+        game.newQuestion()
     },
 
     newQuestion: function () {
@@ -56,6 +57,7 @@ game = {
         start = new Date;
 
         counter = 0;
+        $('#timeRemaining').text(7);
         dTimer = setInterval(function () {//Count down from 7
             $('#timeRemaining').text(6 - counter);
             counter++
@@ -65,8 +67,10 @@ game = {
         qTimer = setInterval(function () {//Display the result after 7s
             clearInterval(dTimer);
             clearInterval(qTimer);
+
             if (correctAnswer) {
                 game.correctResult();
+
             } else {
                 game.wrongResult();
             }
@@ -101,13 +105,13 @@ game = {
         numberRight++
         console.log('newquestion')
         rTimer = setInterval(function () {
-            clearInterval(rTimer);
-            console.log('hellloooo')
-            if (qCount < 3){
+            if (qCount < 1) {
                 game.newQuestion();
             } else {
                 game.gameOver();
             }
+            clearInterval(rTimer);
+            console.log('hellloooo')
         }, 5000);
 
     },
@@ -122,32 +126,46 @@ game = {
         rTimer = setInterval(function () {
             clearInterval(rTimer);
             console.log('hellloooo')
-            game.newQuestion();
+            if (qCount < 1) {
+                game.newQuestion();
+            } else {
+                game.gameOver();
+            }
         }, 5000);
     },
 
-    gameOver: function(){
+    gameOver: function () {
         gameOver = true;
         $('#resultBox').hide();
         $('#gameOver').show();
+        $('.replayButton').show();
         $('#gameOverText').text("That's all for this round!");
-        $('numberRight').text("Correct: " + numberRight);
-        $('numberWrong').text('Wrong: ' + numberWrong);
-        $('playAgain').text("Would you like to play again?")
+        $('#numberRight').text("Correct: " + numberRight);
+        $('#numberWrong').text('Wrong: ' + numberWrong);
+        $('#playAgain').text("Would you like to play again?")
     }
 }
 
 ///////End Game Object
 
-game.initialize();
+// game.initialize();
 
 $('#start').on('click', function () {
     $('#start').hide()
-    game.newQuestion();
+    game.initialize();
 })
 
 $('.answer').on('click', function () {
     game.checkAnswer(this.id[6]);
     console.log(correctAnswer)
 });
+
+$('.replayButton').on('click', function (event) {
+    event.preventDefault();
+    console.log($(this).val())
+    console.log($(this).val() === 'true')
+    if ($(this).val() === 'true') {
+        game.initialize();
+    }
+})
 

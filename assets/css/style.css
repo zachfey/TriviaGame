@@ -1,2 +1,17 @@
+#questionBox{
+    display:none;
+}
+
+#resultBox{
+    display: none;
+}
+
+#gameOver{
+    display: none;
+}
+
+.replayButton{
+    display: none;
+}
 
 
