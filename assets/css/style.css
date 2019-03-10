@@ -16,9 +16,10 @@
 
 h1{
     font-family: 'waterFont';
-    color: blue;
+    font-size: 60px;
+    color: #3EC7FF;
     text-align: center;
-    margin-bottom: 150px;
+    /* margin-bottom: 150px; */
 }
 
 html{
@@ -32,28 +33,59 @@ main{
     top: 0;
     left: 0;
     width: 100%;
+    height: 500px;
 }
 
 #gameSpace{
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 400px;
+    width: 800px;
     align-self: center;
     overflow: auto;
-    background-image: url('../images/water-clean.jpg');
-    background-size: contain;
+    /* background-image: url('../images/water-clean.jpg'); */
+    background-image: url('../images/waterDrop.jpg');
+    background-size: 100%;
     background-repeat: no-repeat;
     height: 700px;
-
+    justify-content: center;
+    padding: 20px;
 }
 
 p{
-    font-family: 'Sniglet', cursive;
+    /* font-family: 'Sniglet', cursive; */
+    font-family: 'Passion One', cursive;
+    /* font-family: 'Pacifico', cursive; */
+    color: #4072B2;
+    font-size: 30px;
 }
 
-button{
+#questionBox{   
+    text-align: center;
+    display: block;
+    overflow:auto;
     margin-left: auto;
+    margin-right: auto;
+    align-self: center;
+
+}
+
+button:hover{
+    color: #254166  !important;
+}
+
+
+button{
+    /* font-family: 'Sniglet', cursive; */
+    /* font-family: 'Pacifico', cursive; */
+    font-family: 'Passion One', cursive;
+    font-size: 25px;
+    color: #4072B2;
+    display: block;
+    overflow:auto;
+    margin-left: auto;
+    margin-right: auto;
+    align-self: center;
     background-color: Transparent;
     background-repeat:no-repeat;
     border: none;
@@ -64,5 +96,5 @@ button{
 
 @font-face {
     font-family: 'waterFont';
-    src: url('../fonts/PWBubbles.ttf') format('truetype');
+    src: url('../fonts/ulove.TTF') format('truetype');
 }
