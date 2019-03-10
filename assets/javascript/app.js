@@ -32,16 +32,22 @@ QuestionConstructor.prototype.check = function (answer) {
     }
 }
 
-var question1 = new QuestionConstructor('How much is 4?', [1, 2, 3, 4], 3);
-var question2 = new QuestionConstructor('Placeholder, pick 1', [1, 2, 3, 4], 0);
-var question3 = new QuestionConstructor('Placeholder2, pick 2', [1, 2, 3, 4], 1);
-var question4 = new QuestionConstructor('Placeholder3, pick 3', [1, 2, 3, 4], 2);
-var question5 = new QuestionConstructor('Placeholder4, pick 4', [1, 2, 3, 4], 3);
-questions = [question1, question2, question3, question4, question5]
+var question1 = new QuestionConstructor('True of False: Water is the only substance found naturally on Earth in three forms?', ['True', 'False'], 0);
+var question2 = new QuestionConstructor('How long can a person live without water?', ['One Week', 'One Month', 'One Day', 'One Year'], 0);
+var question3 = new QuestionConstructor('How much of the human body is water?', ['16%', '56%', '66%', '96%'], 2);
+var question4 = new QuestionConstructor('How much of the Earth\'s water is suitable for drinking water?', ['1%', '10%', '50%', '100%'], 0);
+var question5 = new QuestionConstructor('How much does one cubic foot of water weigh?', ['24.4 lbs', '45.4 lbs', '55.4 lbs', '62.4 lbs'], 3);
+var question6 = new QuestionConstructor('What is the total amount of water used to manufacture a new car?', ['39 gal', '390 gal', '3,900 gal', '39,000 gal'], 3);
+var question7 = new QuestionConstructor('Which other substance\'s solid is lighter than its liquid, like water?', ['gasoline', 'silicon', 'oil', 'ethanol'], 1);
+var question8 = new QuestionConstructor('What percentage of Earth\'s fresh water is trapped in glaciers?', ['8.7%', '38.7%', '68.7%', '98.7% lbs'], 2);
+var question9 = new QuestionConstructor('How many atoms make up one molecule of water?', ['1', '2', '3', '4'], 2);
+var question10 = new QuestionConstructor('Which word describes a property of water?', ['volatile', 'polar', 'flammable', 'basic'], 1);
+
+questions = [question1, question2, question3, question4, question5, question6, question7, question8, question9, question10]
 
 game = {
     initialize: function () {
-        qArray = [0, 1, 2, 3, 4] //TODO expand to keep up with number of questions
+        qArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] //TODO expand to keep up with number of questions
         numberRight = 0;
         numberWrong = 0;
         qCount = 0;

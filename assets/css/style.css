@@ -16,8 +16,9 @@
 
 h1{
     font-family: 'waterFont';
-    color: lightblue;
+    color: blue;
     text-align: center;
+    margin-bottom: 150px;
 }
 
 html{
@@ -45,6 +46,20 @@ main{
     background-repeat: no-repeat;
     height: 700px;
 
+}
+
+p{
+    font-family: 'Sniglet', cursive;
+}
+
+button{
+    margin-left: auto;
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
 }
 
 @font-face {
