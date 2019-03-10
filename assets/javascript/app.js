@@ -67,9 +67,9 @@ $(document).ready(function () {
             start = new Date;
 
             counter = 0;
-            $('#timeRemaining').text(15);
+            $('#timeRemaining').text(10);
             dTimer = setInterval(function () {//Count down from 7
-                $('#timeRemaining').text(14 - counter);
+                $('#timeRemaining').text(9 - counter);
                 counter++
                 console.log('tick');
             }, 1000);
@@ -84,7 +84,7 @@ $(document).ready(function () {
                 } else {
                     game.wrongResult();
                 }
-            }, 5000);
+            }, 10000);
 
             var qNumber = pickQuestion()//pick a random question id
             // console.log('qNumber: ' + qNumber)
@@ -111,7 +111,7 @@ $(document).ready(function () {
             numberRight++
             console.log('newquestion')
             rTimer = setInterval(function () {
-                if (qCount < 1) {
+                if (qCount < 5) {
                     game.newQuestion();
                 } else {
                     game.gameOver();
@@ -130,7 +130,7 @@ $(document).ready(function () {
             numberWrong++
             rTimer = setInterval(function () {
                 clearInterval(rTimer);
-                if (qCount < 1) {
+                if (qCount < 5) {
                     game.newQuestion();
                 } else {
                     game.gameOver();
