@@ -21,9 +21,13 @@ function QuestionConstructor(question, answers, correctAnswer) {
 }
 
 QuestionConstructor.prototype.check = function (answer) {
-    if (answer = this.answers[this.correctAnswer]) {
+    console.log('answer: ' + answer);
+    
+    if (answer - 1 === this.correctAnswer) {
+        console.log('right answer')
         return true
     } else {
+        console.log('wrong answer')
         return false
     }
 }
@@ -89,13 +93,13 @@ game = {
         $('#resultBox').hide();
     },
 
-    checkAnswer: function (ansNum) {
-        if (choseQuestion.correctAnswer + 1 == ansNum) {
-            correctAnswer = true;
-        } else {
-            correctAnswer = false;
-        }
-    },
+    // checkAnswer: function (ansNum) { //replaced by object method
+    //     if (choseQuestion.correctAnswer + 1 == ansNum) {
+    //         correctAnswer = true;
+    //     } else {
+    //         correctAnswer = false;
+    //     }
+    // },
 
     correctResult: function () {
         $('#questionBox').hide();
@@ -156,7 +160,7 @@ $('#start').on('click', function () {
 })
 
 $('.answer').on('click', function () {
-    game.checkAnswer(this.id[6]);
+    correctAnswer = choseQuestion.check(this.id[6]);
     console.log(correctAnswer)
 });
 

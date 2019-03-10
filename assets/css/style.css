@@ -14,4 +14,40 @@
     display: none;
 }
 
+h1{
+    font-family: 'waterFont';
+    color: lightblue;
+    text-align: center;
+}
 
+html{
+    background-image: url('../images/waterBackground.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+main{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+#gameSpace{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+    align-self: center;
+    overflow: auto;
+    background-image: url('../images/water-clean.jpg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 700px;
+
+}
+
+@font-face {
+    font-family: 'waterFont';
+    src: url('../fonts/PWBubbles.ttf') format('truetype');
+}
