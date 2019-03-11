@@ -1,39 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css"/>
+    <!-- <link href="https://fonts.googleapis.com/css?family=Sniglet" rel="stylesheet"> -->
+    <!-- <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css?family=Passion+One" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <title>Trivia Game!</title>
+    <title>Watery Wonderings</title>
 </head>
+
 <body>
-    <h1>Trivia Game Header</h1>
+    <main>
+        <div id = 'gameSpace'>
+            <h1>Watery Wonderings</h1>
 
-    <button id="start">Start</button>
+            <button id="start">Start</button>
 
-    <div id="questionBox">
-        <p id="timeRemaining"></p>
-        <p id="question"></p>
-        <button class = 'answer' id="answer1"></button>
-        <button class = 'answer' id="answer2"></button>
-        <button class = 'answer' id="answer3"></button>
-        <button class = 'answer' id="answer4"></button>
-    </div>
-    <div id="resultBox">
-        <p id="rightWrong"></p>
-        <img src="#" id="gif"/>
-    </div>
-    <div id ="gameOver">
-        <p id="gameOverText"></p>
-        <p id="numberRight"></p>
-        <p id="numberWrong"></p>
-        <p id="playAgain"></p>
-        <button class = "replayButton" id = "yesPlayAgain" value = 'true'>Yes</button>
-        <button class = "replayButton" id = "noPlayAgain" value = 'false'>No</button>
-    </div>
-    
+            <div id="questionBox"> <!-- creates a div for the questions -->
+                <p id="timeRemaining"></p>
+                <p id="question"></p>
+                <button class='answer' id="answer1"></button><br>
+                <button class='answer' id="answer2"></button><br>
+                <button class='answer' id="answer3"></button><br>
+                <button class='answer' id="answer4"></button><br>
+            </div>
+            <div id="resultBox"> <!-- creates a div for the results-->
+                <p id="rightWrong"></p>
+                <p id="correctAnswer"></p>
+            </div>
+            <div id="gameOver"> <!-- creates a div for the end screen-->
+                <p id="gameOverText"></p>
+                <p id="numberRight"></p>
+                <p id="numberWrong"></p>
+                <p id="playAgain"></p>
+                <button class="replayButton" id="yesPlayAgain" value='true'>Yes</button>
+                <button class="replayButton" id="noPlayAgain" value='false'>No</button>
+            </div>
+        </div>
+    </main>
 </body>
-<script type ="text/javascript" src="assets/javascript/app.js"></script>
+<script type="text/javascript" src="assets/javascript/app.js"></script>
+
 </html>

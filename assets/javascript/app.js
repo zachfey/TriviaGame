@@ -1,176 +1,191 @@
-"use strict";
+$(document).ready(function () { //once the document is ready, execute the below script
 
-$(document).ready();
+    let questions, correctAnswer, numberRight, numberWrong, randQ,
+        choseQuestion, qTimer, dTimer, rTimer, qArray, counter,
+        qCount, game
 
-var questions, question, answers, correctAnswer, answer, numberRight, numberWrong, gameOver, start, randQ,
-    choseQuestion, questionNumber, ansNum, qTimer, dTimer, rTimer, qArray, counter,
-    qCount
 
-function setState(pama) {
 
-}
-function pickQuestion() {
-    randQ = qArray[Math.floor(Math.random() * qArray.length)];
-    console.log('qArray before:' + qArray)
-    qArray.splice(randQ, 1);
-    console.log('qArray after: ' + qArray)
-    console.log('randQ:' + randQ)
-    return randQ;
-}
 
-function QuestionConstructor(question, answers, correctAnswer) {
-    this.question = question;
-    this.answers = answers;
-    this.correctAnswer = correctAnswer;
-
-}
-
-QuestionConstructor.prototype.check = function (answer) {
-    if (answer = this.answers[this.correctAnswer]) {
-        return true
-    } else {
-        return false
+    function QuestionConstructor(question, answers, rightAnswer) { //a constructor to make it easier to create questions
+        this.question = question;
+        this.answers = answers;
+        this.rightAnswer = rightAnswer;
+        
     }
-}
 
-var question1 = new QuestionConstructor('How much is 4?', [1, 2, 3, 4], 3);
-var question2 = new QuestionConstructor('Placeholder, pick 1', [1, 2, 3, 4], 0);
-var question3 = new QuestionConstructor('Placeholder2, pick 2', [1, 2, 3, 4], 1);
-var question4 = new QuestionConstructor('Placeholder3, pick 3', [1, 2, 3, 4], 2);
-var question5 = new QuestionConstructor('Placeholder4, pick 4', [1, 2, 3, 4], 3);
-questions = [question1, question2, question3, question4, question5]
-
-game = {
-    initialize: function () {
-        qArray = [0, 1, 2, 3, 4] //TODO expand to keep up with number of questions
-        numberRight = 0;
-        numberWrong = 0;
-        qCount = 0;
-        gameOver = false
-
-        $('#questionBox').hide();
-        $('#resultBox').hide();
-        $('#gameOver').hide();
-        $('.replayButton').hide();
-        $('#start').hide();
-
-        game.newQuestion()
-    },
-
-    newQuestion: function () {
-        qCount++;
-        start = new Date;
-
-        counter = 0;
-        $('#timeRemaining').text(7);
-        dTimer = setInterval(function () {//Count down from 7
-            $('#timeRemaining').text(6 - counter);
-            counter++
-            console.log('tick');
-        }, 1000);
-
-        qTimer = setInterval(function () {//Display the result after 7s
-            clearInterval(dTimer);
-            clearInterval(qTimer);
-
-            if (correctAnswer) {
-                game.correctResult();
-
-            } else {
-                game.wrongResult();
-            }
-        }, 7000);
-
-        var qNumber = pickQuestion()//pick a random question id
-        console.log('qNumber: ' + qNumber)
-        choseQuestion = questions[qNumber];//assign the chosen question based on question id
-
-        $('#question').text(choseQuestion.question); //populate the question
-        for (let i = 1; i < 5; i++) { //populate the answer
-            $('#answer' + i).text(choseQuestion.answers[i - 1]);
-        }
-
-        $('#questionBox').show(); //show the user the question
-        $('#resultBox').hide();
-    },
-
-    checkAnswer: function (ansNum) {
-        if (choseQuestion.correctAnswer + 1 == ansNum) {
-            correctAnswer = true;
+    QuestionConstructor.prototype.check = function (answer) { //adds a .check method to the QuestionConstructor
+        // console.log('answer: ' + answer);
+        if (answer - 1 === this.rightAnswer) {
+            // console.log('right answer')
+            return true
         } else {
-            correctAnswer = false;
+            // console.log('wrong answer')
+            return false
         }
-    },
-
-    correctResult: function () {
-        $('#questionBox').hide();
-        $('#resultBox').show();
-        $('#rightWrong').text("Correct!");
-
-        numberRight++
-        console.log('newquestion')
-        rTimer = setInterval(function () {
-            if (qCount < 1) {
-                game.newQuestion();
-            } else {
-                game.gameOver();
-            }
-            clearInterval(rTimer);
-            console.log('hellloooo')
-        }, 5000);
-
-    },
-
-    wrongResult: function () {
-        $('#questionBox').hide();
-        $('#resultBox').show();
-        $('#rightWrong').text("Wrong!");
-
-        numberWrong++
-        console.log('newquestion')
-        rTimer = setInterval(function () {
-            clearInterval(rTimer);
-            console.log('hellloooo')
-            if (qCount < 1) {
-                game.newQuestion();
-            } else {
-                game.gameOver();
-            }
-        }, 5000);
-    },
-
-    gameOver: function () {
-        gameOver = true;
-        $('#resultBox').hide();
-        $('#gameOver').show();
-        $('.replayButton').show();
-        $('#gameOverText').text("That's all for this round!");
-        $('#numberRight').text("Correct: " + numberRight);
-        $('#numberWrong').text('Wrong: ' + numberWrong);
-        $('#playAgain').text("Would you like to play again?")
     }
-}
 
-///////End Game Object
+    //create each question using the above constructor
+    let question1 = new QuestionConstructor('True of False: Water is the only substance found naturally on Earth in three forms?', ['True', 'False', '', ''], 0);
+    let question2 = new QuestionConstructor('How long can a person live without water?', ['One Week', 'One Month', 'One Day', 'One Year'], 0);
+    let question3 = new QuestionConstructor('How much of the human body is water?', ['16%', '56%', '66%', '96%'], 2);
+    let question4 = new QuestionConstructor('How much of the Earth\'s water is suitable for drinking water?', ['1%', '10%', '50%', '100%'], 0);
+    let question5 = new QuestionConstructor('How much does one cubic foot of water weigh?', ['24.4 lbs', '45.4 lbs', '55.4 lbs', '62.4 lbs'], 3);
+    let question6 = new QuestionConstructor('What is the total amount of water used to manufacture a new car?', ['39 gal', '390 gal', '3,900 gal', '39,000 gal'], 3);
+    let question7 = new QuestionConstructor('Which other substance\'s solid is lighter than its liquid, like water?', ['gasoline', 'silicon', 'oil', 'ethanol'], 1);
+    let question8 = new QuestionConstructor('What percentage of Earth\'s fresh water is trapped in glaciers?', ['8.7%', '38.7%', '68.7%', '98.7%'], 2);
+    let question9 = new QuestionConstructor('How many atoms make up one molecule of water?', ['1', '2', '3', '4'], 2);
+    let question10 = new QuestionConstructor('Which word describes a property of water?', ['volatile', 'polar', 'flammable', 'basic'], 1);
 
-// game.initialize();
+    //create an array of all of the qeustions
+    questions = [question1, question2, question3, question4, question5, question6, question7, question8, question9, question10]
 
-$('#start').on('click', function () {
-    $('#start').hide()
-    game.initialize();
-})
+    /////////////////////////begin game object
+    game = {
+        initialize: function () { //initialize function to put the game at the beginning game state
+            qArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] //this array is used to reference questions 1 - 10. These values are stored in an array so that the index can be removed after using a question
+            numberRight = 0; // 0 correct answers
+            numberWrong = 0; // 0 wrong answers
+            qCount = 0; // 0 questions asked
+            gameOver = false //game is not over
 
-$('.answer').on('click', function () {
-    game.checkAnswer(this.id[6]);
-    console.log(correctAnswer)
-});
+            $('#questionBox').hide(); //hide the question area
+            $('#resultBox').hide(); //hide the results area
+            $('#gameOver').hide(); //hide the game over screen
+            $('.replayButton').hide(); //hide the replay button
+            $('#start').hide(); //hide the start button
 
-$('.replayButton').on('click', function (event) {
-    event.preventDefault();
-    console.log($(this).val())
-    console.log($(this).val() === 'true')
-    if ($(this).val() === 'true') {
+            game.newQuestion() //generate and ask a new question
+        },
+
+        newQuestion: function () { //generates and asks a new question
+            qCount++; //number of questions increments by 1
+            // start = new Date; 
+            correctAnswer = false; // defaults to the wrong answer if an answer is not chosen
+            $('button').css('color', 'rgb(64, 114, 178)'); //removes any highlighting from selecting the previous answer
+
+            counter = 0; //counter for the time remaining timer
+            $('#timeRemaining').text(10); //start the time remaiing timer at 10
+            dTimer = setInterval(function () {//Count down from 10
+                $('#timeRemaining').text(9 - counter);
+                counter++
+                // console.log('tick');
+            }, 1000);
+
+            qTimer = setInterval(function () {//Display the result after 10s
+                clearInterval(dTimer);
+                clearInterval(qTimer);
+
+                if (correctAnswer) {
+                    game.correctResult();
+
+                } else {
+                    game.wrongResult();
+                }
+            }, 10000);
+
+            let qNumber = game.pickQuestion()//pick a random question id
+            // console.log('qNumber: ' + qNumber)
+            choseQuestion = questions[qNumber];//assign the chosen question based on question id
+            // console.log("The correct answer was: " + choseQuestion.answers[choseQuestion.rightAnswer])
+
+            $('#question').text(choseQuestion.question); //populate the question onto the page
+            for (let i = 1; i < 5; i++) { //populate the answer
+                $('#answer' + i).text(choseQuestion.answers[i - 1]);
+            }
+            $('#correctAnswer').text("The correct answer was: " + choseQuestion.answers[choseQuestion.rightAnswer]); //go ahead and populate the correct answer element because it is still hidden
+
+
+            $('#questionBox').show(); //show the user the question
+            $('#resultBox').hide(); //hide the result box
+            $('#correctAnswer').hide(); //hide the correct answer box
+        },
+
+        correctResult: function () { //executes when the timer is up and the user guessed correctly
+            $('#questionBox').hide(); //hides the question
+            $('#resultBox').show(); //shows the result
+            $('#rightWrong').text("Correct!"); //tells the user they were correct
+
+            numberRight++ //increments the number of correct answers
+            // console.log('newquestion') 
+            rTimer = setInterval(function () { //sets a timer for five seconds for the user to review the result
+                if (qCount < 5) { //if 5 questions have not been asked, ask a new question.
+                    game.newQuestion();
+                } else { //if 5 questions have been asked, end the game
+                    game.gameOver();
+                }
+                clearInterval(rTimer);
+            }, 5000);
+
+        },
+
+        wrongResult: function () { //executes when the timer is up and the user guessed incorrectly
+            $('#questionBox').hide(); //hide the qeustion
+            $('#resultBox').show(); //show the results
+            $('#rightWrong').text("Wrong!"); //tell the user they got it wrong
+            $('#correctAnswer').show(); //show the user the correct answer
+
+            numberWrong++ //increments the number of wrong answers
+            rTimer = setInterval(function () {
+                clearInterval(rTimer);
+                if (qCount < 5) {
+                    game.newQuestion();
+                } else {
+                    game.gameOver();
+                }
+            }, 5000);
+        },
+
+        gameOver: function () { //when the game is over (after 5 questions)
+            gameOver = true;
+            $('#resultBox').hide();
+            $('#gameOver').show();
+            $('.replayButton').show();
+            $('#gameOverText').text("That's all for this round!");
+            $('#numberRight').text("Correct: " + numberRight);
+            $('#numberWrong').text('Wrong: ' + numberWrong);
+            $('#playAgain').text("Would you like to play again?")
+        },
+
+        pickQuestion: function () { //chooses a question randomly using the qArray, and removes the chosen question index from qArray
+            randQ = qArray[Math.floor(Math.random() * qArray.length)]; //picks the random index number
+            // console.log('qArray before:' + qArray)
+            qArray.splice(randQ, 1); //removes the chosen index number from qArray
+            // console.log('qArray after: ' + qArray)
+            // console.log('randQ:' + randQ)
+            return randQ;
+        }
+    }
+
+    ///////////////////////////////////End Game Object
+
+
+    ////////////////////////////////////Begin event listeners
+
+    $('#start').on('click', function () { //when the start button is clicked, start the game
         game.initialize();
-    }
-})
+    })
 
+    $('.answer').on('click', function () { //when an answer is clicked, check to see if it was correct
+        correctAnswer = choseQuestion.check(this.id[6]);
+        // console.log(correctAnswer)
+    });
+
+    $('.replayButton').on('click', function (event) { //when a replay button class is clicked (yes/no)
+        // event.preventDefault();
+        // console.log($(this).val())
+        // console.log($(this).val() === 'true')
+        if ($(this).val() === 'true') { //if 'yes' was clicked
+            game.initialize(); //start the game
+        } //TODO add a goodby screen if 'no' is clicked
+    })
+
+    $('button').on('click', function () { //if any button in the game is clicked
+        // console.log($(this).css('color'));
+        if ($(this).css('color') !== 'rgb(38, 67, 105)') { //if the button is not highlighted
+            $('button').css('color', 'rgb(64, 114, 178)'); //turn all other buttons to the standard color
+            $(this).css('color', 'rgb(38, 67, 105)'); //highlight teh clicked button
+        }
+    })
+
+});
