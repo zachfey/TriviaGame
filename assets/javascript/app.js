@@ -1,10 +1,14 @@
+"use strict";
+
 $(document).ready();
 
 var questions, question, answers, correctAnswer, answer, numberRight, numberWrong, gameOver, start, randQ,
     choseQuestion, questionNumber, ansNum, qTimer, dTimer, rTimer, qArray, counter,
     qCount
 
+function setState(pama) {
 
+}
 function pickQuestion() {
     randQ = qArray[Math.floor(Math.random() * qArray.length)];
     console.log('qArray before:' + qArray)
@@ -18,6 +22,7 @@ function QuestionConstructor(question, answers, correctAnswer) {
     this.question = question;
     this.answers = answers;
     this.correctAnswer = correctAnswer;
+
 }
 
 QuestionConstructor.prototype.check = function (answer) {
